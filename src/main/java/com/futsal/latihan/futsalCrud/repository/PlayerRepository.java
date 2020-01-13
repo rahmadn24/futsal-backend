@@ -12,4 +12,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query(nativeQuery= true, value= "SELECT s.* FROM player s WHERE s.team_code = ?1")
     List<Player> findDataByTeam(Long idTeam);
+
+    @Query(nativeQuery = true, value= "SELECT p.* from player p WHERE p.team_code = ?1 and p.player_name LIKE ?2")
+    List<Player> findByTeamAndName(Long idTeam, String playerName);
 }

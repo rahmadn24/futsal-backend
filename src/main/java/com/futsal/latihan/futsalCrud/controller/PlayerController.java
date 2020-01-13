@@ -2,6 +2,7 @@ package com.futsal.latihan.futsalCrud.controller;
 
 import com.futsal.latihan.futsalCrud.dto.PlayerDto;
 import com.futsal.latihan.futsalCrud.model.Player;
+import com.futsal.latihan.futsalCrud.model.Team;
 import com.futsal.latihan.futsalCrud.services.PlayerService;
 import com.futsal.latihan.futsalCrud.services.PositionService;
 import com.futsal.latihan.futsalCrud.services.TeamService;
@@ -51,10 +52,26 @@ public class PlayerController {
     }
 
     @GetMapping("/{idPlayer}")
-    public ResponseEntity<HashMap<String, Object>> getDataByNip(@PathVariable(value="idPlayer") Long idPlayer) {
+    public ResponseEntity<HashMap<String, Object>> getDataById(@PathVariable(value="idPlayer") Long idPlayer) {
         HashMap<String, Object> data = new HashMap<>();
         try {
             Player list = playerService.getDataById(idPlayer);
+            data.put(Constant.CONST_DATA, list);
+            data.put(Constant.CONST_STATUS, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(String.format(Constant.CONST_ERROR, e.getMessage()));
+            data.put(Constant.CONST_STATUS, HttpStatus.INTERNAL_SERVER_ERROR);
+            data.put(Constant.CONST_MSG, e.getMessage());
+        }
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    @GetMapping("/team")
+    public ResponseEntity<HashMap<String, Object>> getPlayerByTeamAndName(@RequestParam String teamCode, @RequestParam String playerName) {
+        HashMap<String, Object> data = new HashMap<>();
+        try {
+            Team team = teamService.getDataById(teamCode);
+            List<Player> list = playerService.getDataByTeamAndPlayer(team.getIdTeam(), playerName+'%');
             data.put(Constant.CONST_DATA, list);
             data.put(Constant.CONST_STATUS, HttpStatus.OK);
         } catch (Exception e) {

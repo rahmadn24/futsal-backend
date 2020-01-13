@@ -38,6 +38,10 @@ public class PlayerService {
         return playerRepo.findDataByTeam(id);
     }
 
+    public List<Player> getDataByTeamAndPlayer(Long teamCode, String playerName) {
+        return playerRepo.findByTeamAndName(teamCode, playerName);
+    }
+
     public Optional<Player> getDataAllById(Long id) {
         return playerRepo.findById(id);
     }
