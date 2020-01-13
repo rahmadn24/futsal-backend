@@ -2,12 +2,13 @@ package com.futsal.latihan.futsalCrud.controller;
 
 import com.futsal.latihan.futsalCrud.dto.TeamDto;
 import com.futsal.latihan.futsalCrud.model.Player;
+import com.futsal.latihan.futsalCrud.model.Position;
 import com.futsal.latihan.futsalCrud.model.Team;
 import com.futsal.latihan.futsalCrud.services.PlayerService;
+import com.futsal.latihan.futsalCrud.services.PositionService;
 import com.futsal.latihan.futsalCrud.services.TeamService;
 import com.futsal.latihan.futsalCrud.utils.Constant;
 import com.futsal.latihan.futsalCrud.utils.GenericJson;
-import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class TeamController {
 
     @Autowired
     PlayerService playerService;
+
+    @Autowired
+    PositionService positionService;
 
     private ModelMapper modelMapper = new ModelMapper();
     private static final Logger logger  = LoggerFactory.getLogger(PlayerController.class);
@@ -64,11 +68,12 @@ public class TeamController {
     }
 
     @GetMapping("/player")
-    public ResponseEntity<HashMap<String, Object>> getPlayerByTeamAndName(@RequestParam String teamCode, @RequestParam String playerName) {
+    public ResponseEntity<HashMap<String, Object>> getPlayerByTeamAndName(@RequestParam String teamCode, @RequestParam String playerName, @RequestParam String positionCode) {
         HashMap<String, Object> data = new HashMap<>();
         try {
             Team list = teamService.getDataById(teamCode);
-            List<Player> player = playerService.getDataByTeamAndPlayer(list.getIdTeam(), playerName+'%');
+            Position list2 = positionService.getDataById(positionCode);
+            List<Player> player = playerService.getDataByTeamAndPlayer(list.getIdTeam(), playerName+'%', list2.getIdPosition());
             list.setPlayer(player);
             data.put(Constant.CONST_DATA, list);
             data.put(Constant.CONST_STATUS, HttpStatus.OK);

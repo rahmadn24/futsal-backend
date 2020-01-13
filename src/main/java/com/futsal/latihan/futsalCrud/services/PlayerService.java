@@ -38,8 +38,8 @@ public class PlayerService {
         return playerRepo.findDataByTeam(id);
     }
 
-    public List<Player> getDataByTeamAndPlayer(Long teamCode, String playerName) {
-        return playerRepo.findByTeamAndName(teamCode, playerName);
+    public List<Player> getDataByTeamAndPlayer(Long teamCode, String playerName, Long positionCode) {
+        return playerRepo.findByTeamAndName(teamCode, playerName, positionCode);
     }
 
     public List<Player> getDataByPlayerName(String playerName) {

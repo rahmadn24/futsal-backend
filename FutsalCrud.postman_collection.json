@@ -154,7 +154,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8081/api/player/team?playerName=Ryan&teamCode=MCU",
+							"raw": "localhost:8081/api/player/team?playerName=Ryan&teamCode=MCU&positionCode=PVT",
 							"host": [
 								"localhost"
 							],
@@ -172,6 +172,10 @@
 								{
 									"key": "teamCode",
 									"value": "MCU"
+								},
+								{
+									"key": "positionCode",
+									"value": "PVT"
 								}
 							]
 						}
@@ -340,7 +344,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8081/api/team/player?teamCode=MCU&playerName=Ryan",
+							"raw": "localhost:8081/api/team/player?teamCode=MCU&playerName=Ryan&positionCode=ANC",
 							"host": [
 								"localhost"
 							],
@@ -358,6 +362,10 @@
 								{
 									"key": "playerName",
 									"value": "Ryan"
+								},
+								{
+									"key": "positionCode",
+									"value": "ANC"
 								}
 							]
 						}

@@ -2,6 +2,7 @@ package com.futsal.latihan.futsalCrud.controller;
 
 import com.futsal.latihan.futsalCrud.dto.PlayerDto;
 import com.futsal.latihan.futsalCrud.model.Player;
+import com.futsal.latihan.futsalCrud.model.Position;
 import com.futsal.latihan.futsalCrud.model.Team;
 import com.futsal.latihan.futsalCrud.services.PlayerService;
 import com.futsal.latihan.futsalCrud.services.PositionService;
@@ -67,11 +68,12 @@ public class PlayerController {
     }
 
     @GetMapping("/team")
-    public ResponseEntity<HashMap<String, Object>> getPlayerByTeamAndName(@RequestParam String teamCode, @RequestParam String playerName) {
+    public ResponseEntity<HashMap<String, Object>> getPlayerByTeamAndName(@RequestParam String teamCode, @RequestParam String playerName, @RequestParam String positionCode) {
         HashMap<String, Object> data = new HashMap<>();
         try {
             Team team = teamService.getDataById(teamCode);
-            List<Player> list = playerService.getDataByTeamAndPlayer(team.getIdTeam(), playerName+'%');
+            Position position = positionService.getDataById(positionCode);
+            List<Player> list = playerService.getDataByTeamAndPlayer(team.getIdTeam(), playerName+'%', position.getIdPosition());
             data.put(Constant.CONST_DATA, list);
             data.put(Constant.CONST_STATUS, HttpStatus.OK);
         } catch (Exception e) {
