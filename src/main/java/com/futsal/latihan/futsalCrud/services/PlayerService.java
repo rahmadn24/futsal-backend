@@ -31,7 +31,7 @@ public class PlayerService {
     }
 
     public List<Player> getDataAllByIdPosition(Long id) {
-        return playerRepo.findDataByPosition(id);
+        return playerRepo.findByPositionCode(id);
     }
 
     public List<Player> getDataAllByIdTeam(Long id) {

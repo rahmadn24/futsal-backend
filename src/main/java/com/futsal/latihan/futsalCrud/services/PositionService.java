@@ -23,7 +23,7 @@ public class PositionService {
     }
 
     public Position getDataById(String position_code) {
-        Optional<Position> opt = positionRepo.findDataByCode(position_code);
+        Optional<Position> opt = positionRepo.findByPositionCode(position_code);
         if (opt.isPresent()) {
             return opt.get();
         }else {
