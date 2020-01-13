@@ -42,6 +42,10 @@ public class PlayerService {
         return playerRepo.findByTeamAndName(teamCode, playerName);
     }
 
+    public List<Player> getDataByPlayerName(String playerName) {
+        return playerRepo.findByPlayerName(playerName);
+    }
+
     public Optional<Player> getDataAllById(Long id) {
         return playerRepo.findById(id);
     }

@@ -63,6 +63,23 @@ public class TeamController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    @GetMapping("/player")
+    public ResponseEntity<HashMap<String, Object>> getPlayerByTeamAndName(@RequestParam String teamCode, @RequestParam String playerName) {
+        HashMap<String, Object> data = new HashMap<>();
+        try {
+            Team list = teamService.getDataById(teamCode);
+            List<Player> player = playerService.getDataByTeamAndPlayer(list.getIdTeam(), playerName+'%');
+            list.setPlayer(player);
+            data.put(Constant.CONST_DATA, list);
+            data.put(Constant.CONST_STATUS, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(String.format(Constant.CONST_ERROR, e.getMessage()));
+            data.put(Constant.CONST_STATUS, HttpStatus.INTERNAL_SERVER_ERROR);
+            data.put(Constant.CONST_MSG, e.getMessage());
+        }
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<HashMap<String, Object>> insertData(@RequestBody TeamDto dto) {
         HashMap<String, Object> data = new HashMap<>();

@@ -333,6 +333,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Player Name By Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/team/player?teamCode=MCU&playerName=Ryan",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"team",
+								"player"
+							],
+							"query": [
+								{
+									"key": "teamCode",
+									"value": "MCU"
+								},
+								{
+									"key": "playerName",
+									"value": "Ryan"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
